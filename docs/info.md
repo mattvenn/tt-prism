@@ -13,7 +13,7 @@ It's a visual. not much to do currently :)
 
 ## How to test
 
-Explain how to use your project
+Hook it up into the VGA dongle and turn it on!
 
 ## External hardware
 
