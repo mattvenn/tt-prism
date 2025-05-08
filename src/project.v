@@ -57,13 +57,13 @@ module tt_um_bleeptrack_prism(
 
   wire [10:0] distance = dist_x + dist_y + counter;
 
-  wire [1:0] diamond_color_r = {distance[0], distance[2]};
-  wire [1:0] diamond_color_g = {distance[4], distance[7]};
-  wire [1:0] diamond_color_b = {distance[6], distance[9]};
+  wire [1:0] diamond_color_r = ({distance[0], distance[2]} & ui_in[1:0]);
+  wire [1:0] diamond_color_g = ({distance[4], distance[7]} & ui_in[3:2]);
+  wire [1:0] diamond_color_b = ({distance[6], distance[9]} & ui_in[5:4]);
 
   wire is_diamond = ((dist_x + dist_y) > 10'd800 );
 
-  wire [7:0] star_hash = (pix_x[7:0] ^ pix_y[7:0] ^ {pix_x[3:0], pix_y[3:0]}) + counter;
+  wire [7:0] star_hash = (pix_x[7:0] ^ (pix_y[7:0] & ui_in[7:0]) ^ {pix_x[3:0], pix_y[3:0]}) + counter;
   wire is_star = (star_hash[7:3] == 0);
   wire [1:0] star_brightness = is_star ? star_hash[2:1]  : 2'b00;
 
